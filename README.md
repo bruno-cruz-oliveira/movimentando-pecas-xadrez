@@ -1,40 +1,71 @@
-# Movimentando Peças de Xadrez ♟️
+# Movimentando Peças de Xadrez ♟️ — Versão com Funções Recursivas
 
-Este programa em **C** simula o movimento de quatro peças de xadrez — **Torre**, **Bispo**, **Rainha** e **Cavalo** — com base nas escolhas do usuário.  
-Ele demonstra o uso de **estruturas de controle**, **validação de entrada**, e **lógica condicional**.
+Este programa em **C** simula o movimento de quatro peças de xadrez — **Torre**, **Bispo**, **Rainha** e **Cavalo** — utilizando **funções recursivas** para representar os movimentos das peças.  
+Ele demonstra conceitos avançados de **recursão**, **controle de fluxo** e **validação de entrada** em C.
 
 ## 🧠 Visão Geral
 
-O objetivo do programa é permitir que o usuário escolha uma peça, informe quantas posições ela deve mover e em qual direção o movimento será realizado.  
-Com base nas regras do xadrez, o programa exibe a direção do movimento quantas vezes forem necessárias.
+O programa permite ao usuário escolher uma peça, a direção e o número de posições que ela deve mover.  
+Com base nas regras do xadrez, o programa imprime o movimento da peça repetidamente — mas agora, usando **funções recursivas** no lugar de laços convencionais.
 
 ### Peças Suportadas:
 
 1. **Torre** — movimentos verticais e horizontais.
-2. **Bispo** — movimentos nas diagonais.
+2. **Bispo** — movimentos diagonais.
 3. **Rainha** — combina os movimentos da Torre e do Bispo.
 4. **Cavalo** — movimento em “L”, combinando duas direções.
 
 ## ⚙️ Estrutura do Código
 
-### 1. Declaração das Variáveis
+### 1. Função Recursiva — `moveChessPiece()`
+
+```c
+void moveChessPiece(int positionsNumber, const char *directionName)
+{
+  if (positionsNumber > 0)
+  {
+    moveChessPiece(positionsNumber - 1, directionName);
+    printf("%s\n", directionName);
+  }
+}
+```
+
+Essa função imprime o nome da direção (`directionName`) o número de vezes indicado por `positionsNumber`.  
+A recursão continua chamando a função até que o contador atinja zero, quando a pilha de chamadas começa a imprimir na ordem correta.
+
+**Exemplo:**  
+Se `positionsNumber = 3` e `directionName = "Direita!"`, a saída será:
+
+```
+Direita!
+Direita!
+Direita!
+```
+
+---
+
+### 2. Declaração de Variáveis
 
 ```c
 unsigned short int chessPiece = 1, positionsNumber = 1, direction = 1, secondDirection = 1;
 const char *directionName, *secondDirectionName;
 ```
 
-- `chessPiece`: identifica a peça selecionada.
-- `positionsNumber`: número de casas a mover (1–10).
-- `direction`: direção principal do movimento.
-- `secondDirection`: direção complementar (usada pelo Cavalo).
-- `directionName` / `secondDirectionName`: nomes textuais das direções.
+Essas variáveis controlam as escolhas do usuário:
+
+- `chessPiece`: peça selecionada.
+- `positionsNumber`: número de casas a mover.
+- `direction`: direção principal.
+- `secondDirection`: usada no movimento em “L” do Cavalo.
+- `directionName`: armazena o texto da direção escolhida.
+
+Todas as variáveis são inicializadas para evitar **lixo de memória**.
 
 ---
 
-### 2. Escolha da Peça
+### 3. Escolha da Peça
 
-Um laço `do...while` garante que o usuário escolha um valor entre **1 e 4**.
+O usuário escolhe qual peça mover, e um `do...while` garante que a entrada esteja entre **1 e 4**.
 
 ```c
 do {
@@ -46,45 +77,29 @@ do {
 
 ---
 
-### 3. Definição do Número de Posições
-
-Apenas as três primeiras peças solicitam um número de casas.  
-O **Cavalo** move sempre uma posição composta (em “L”), então não precisa dessa entrada.
-
-```c
-if (chessPiece != 4) {
-  do {
-    printf("Quantas Posições a Peça Moverá?\n");
-    scanf(" %hu", &positionsNumber);
-  } while (positionsNumber <= 0 || positionsNumber > 10);
-}
-```
-
----
-
 ### 4. Lógica de Movimento
 
-O programa utiliza `switch (chessPiece)` para aplicar as regras de cada peça.
+O comportamento de cada peça é definido com `switch (chessPiece)`:
 
 #### 🏰 Torre
 
-- Direções válidas: **Cima**, **Baixo**, **Direita**, **Esquerda**
-- Usa `for` para repetir o movimento
+- Movimentos verticais e horizontais.
+- Usa **recursão direta** para imprimir as direções repetidas.
 
 #### ⛪ Bispo
 
-- Direções válidas: **Cima Direita**, **Cima Esquerda**, **Baixo Direita**, **Baixo Esquerda**
-- Usa `while` para repetir
+- Movimentos nas diagonais.
+- Usa uma combinação de `for` com chamadas recursivas para simular as direções duplas (horizontal + vertical).
 
 #### 👑 Rainha
 
-- Direções válidas: todas as da Torre e do Bispo
-- Usa `do...while` para repetir
+- Combina movimentos da Torre e do Bispo.
+- Usa recursão condicional: se a direção for diagonal, faz chamadas recursivas duplas.
 
 #### 🐴 Cavalo
 
-- Movimento em “L”: combina duas direções (ex: “Cima + Direita”)
-- Usa dois laços aninhados (`for` e `while`) para representar o deslocamento
+- Movimento em “L”: combina duas direções com recursão e laço `for`.
+- Exemplo: “Cima” seguido de “Direita”.
 
 ---
 
@@ -96,38 +111,42 @@ Escolha Qual Peça Deseja Mover!
 2. Bispo
 3. Rainha
 4. Cavalo
-> 1
+> 2
 
 Quantas Posições a Peça Moverá?
-> 3
+> 2
 
-Escolha a Direção que a Peça Moverá!
-1. Cima
-2. Baixo
-3. Direita
-4. Esquerda
-> 3
+Escolha a Direção!
+1. Cima Direita
+2. Cima Esquerda
+3. Baixo Direita
+4. Baixo Esquerda
+> 1
 
 Direita!
+Cima!
 Direita!
-Direita!
+Cima!
 ```
 
----
+## 🔁 Como Funciona a Recursão
 
-## 🧩 Estruturas de Controle Utilizadas
+1. Cada chamada da função `moveChessPiece()` chama ela mesma, reduzindo `positionsNumber` em 1.
+2. Quando o número chega a 0, a função para de chamar a si mesma.
+3. Ao “voltar” na pilha, cada chamada imprime a direção — criando o efeito repetitivo.
 
-| Estrutura                    | Função                                |
-| ---------------------------- | ------------------------------------- |
-| `do...while`                 | Garante entrada válida do usuário     |
-| `switch...case`              | Controla o comportamento de cada peça |
-| `for`, `while`, `do...while` | Repetem o movimento da peça           |
-| `if`                         | Valida condições e restringe valores  |
+Visualmente:
+
+```
+moveChessPiece(3, "Cima!") → moveChessPiece(2, "Cima!") → moveChessPiece(1, "Cima!") → stop
+                               ↑ imprime "Cima!"
+                               ↑ imprime "Cima!"
+                               ↑ imprime "Cima!"
+```
 
 ## ⚠️ Validação e Tratamento de Erros
 
-O programa impede entradas inválidas através de verificações condicionais.  
-Exemplo de mensagens de erro:
+O programa impede entradas inválidas com verificações condicionais:
 
 ```
 Peça Inválida!
@@ -135,7 +154,7 @@ Número de Posições Inválido!
 Direção Inválida!
 ```
 
-Isso evita que o programa leia valores incorretos e trave.
+Além disso, variáveis são **inicializadas com valores padrão** para evitar comportamento indefinido.
 
 ## 🚀 Compilação e Execução
 
@@ -153,13 +172,14 @@ gcc movimentando-pecas-xadrez.c -o xadrez
 
 ## 📚 Conceitos Demonstrados
 
-- **Validação de entradas do usuário**
+- **Recursão** (função chamando a si mesma)
 - **Controle de fluxo e repetição**
-- **Uso de variáveis e ponteiros de string**
-- **Boas práticas: inicialização de variáveis para evitar lixo de memória**
+- **Validação de entrada do usuário**
+- **Boas práticas de inicialização de variáveis**
+- **Uso de ponteiros para manipular strings constantes**
 
 ---
 
 **Autor:** Bruno — Estudante de Análise e Desenvolvimento de Sistemas  
 **Linguagem:** C  
-**Propósito:** Exercício prático sobre estruturas de controle, repetição e simulação lógica de movimentos de xadrez.
+**Propósito:** Exercício prático de lógica recursiva e simulação de movimentos de xadrez em terminal.

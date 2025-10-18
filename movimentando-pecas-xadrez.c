@@ -1,5 +1,14 @@
 #include <stdio.h>
 
+void moveChessPiece(int positionsNumber, const char *directionName)
+{
+  if (positionsNumber > 0)
+  {
+    moveChessPiece(positionsNumber - 1, directionName);
+    printf("%s\n", directionName);
+  }
+}
+
 int main()
 {
 
@@ -81,10 +90,7 @@ int main()
     }
 
     // Imprime a direção do movimento
-    for (int i = 1; i <= positionsNumber; i++)
-    {
-      printf("%s\n", directionName);
-    }
+    moveChessPiece(positionsNumber, directionName);
     break;
   }
 
@@ -111,26 +117,33 @@ int main()
     switch (direction)
     {
     case 1:
-      directionName = "Cima Direita!";
+      directionName = "Direita!";
+      secondDirectionName = "Cima!";
       break;
     case 2:
-      directionName = "Cima Esquerda!";
+      directionName = "Esquerda!";
+      secondDirectionName = "Cima!";
       break;
     case 3:
-      directionName = "Baixo Direita!";
+      directionName = "Direita!";
+      secondDirectionName = "Baixo!";
       break;
     case 4:
-      directionName = "Baixo Esquerda!";
+      directionName = "Esquerda!";
+      secondDirectionName = "Baixo!";
       break;
     }
 
     // Imprime a direção do movimento
-    int i = 1;
-    while (i <= positionsNumber)
+    for (int i = 1; i <= positionsNumber; i++)
     {
-      printf("%s\n", directionName);
-      i++;
+      // Imprime a direção Horizontal do movimento
+      moveChessPiece(1, directionName);
+
+      // Imprime a direção Vertical do movimento
+      printf("%s\n", secondDirectionName);
     }
+
     break;
   }
 
@@ -173,26 +186,41 @@ int main()
       directionName = "Esquerda!";
       break;
     case 5:
-      directionName = "Cima Direita!";
+      directionName = "Direita!";
+      secondDirectionName = "Cima!";
       break;
     case 6:
-      directionName = "Cima Esquerda!";
+      directionName = "Esquerda!";
+      secondDirectionName = "Cima!";
       break;
     case 7:
-      directionName = "Baixo Direita!";
+      directionName = "Direita!";
+      secondDirectionName = "Baixo!";
       break;
     case 8:
-      directionName = "Baixo Esquerda!";
+      directionName = "Esquerda!";
+      secondDirectionName = "Baixo!";
       break;
     }
 
-    // Imprime a direção do movimento
-    int i = 1;
-    do
+    if (direction > 4)
     {
-      printf("%s\n", directionName);
-      i++;
-    } while (i <= positionsNumber);
+      // Imprime a direção do movimento
+      for (int i = 1; i <= positionsNumber; i++)
+      {
+        // Imprime a direção Horizontal do movimento
+        moveChessPiece(1, directionName);
+
+        // Imprime a direção Vertical do movimento
+        printf("%s\n", secondDirectionName);
+      }
+    }
+    else
+    {
+      // Imprime a direção do movimento
+      moveChessPiece(positionsNumber, directionName);
+    }
+
     break;
   }
 
@@ -273,16 +301,10 @@ int main()
       break;
     }
 
-    int j = 1;
-
     for (int i = 1; i <= positionsNumber; i++)
     {
       // Imprime a Primeira direção do movimento
-      while (j <= 2)
-      {
-        printf("%s\n", directionName);
-        j++;
-      }
+      moveChessPiece(2, directionName);
 
       // Imprime a segunda direção do movimento
       printf("%s\n", secondDirectionName);
