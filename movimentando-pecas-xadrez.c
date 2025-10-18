@@ -1,0 +1,195 @@
+#include <stdio.h>
+
+int main()
+{
+
+  // Definição das variáveis auxiliares com o valor já definido para evitar a armazenamento de "lixo"
+  unsigned short int chessPiece = 1, positionsNumber = 1, direction = 1;
+  const char *directionName;
+
+  // Loops para impedir que o programa seja interrompido caso a opção escolhida, seja invalida
+  // Pegunta qual Paça será movida
+  do
+  {
+    if (chessPiece && chessPiece <= 0 || chessPiece > 3)
+    {
+      printf("Paça Invalida!\n");
+    }
+
+    printf("Escolha Qual Paça Deseja Move!\n");
+    printf("1. Torre\n");
+    printf("2. Bispo\n");
+    printf("3. Rainha\n");
+    scanf(" %hu", &chessPiece);
+  } while (chessPiece <= 0 || chessPiece > 3);
+
+  // Pegunta o numero de posições que Paça a movirá
+  do
+  {
+    if (positionsNumber && positionsNumber <= 0 || positionsNumber > 10)
+    {
+      printf("Numero de Posições Invalido!\n");
+      printf("Numero de Posições deve ser entre 1 e 10!\n");
+    }
+
+    printf("Quantas Posições a Paça Moverá!\n");
+    scanf(" %hu", &positionsNumber);
+  } while (positionsNumber <= 0 || positionsNumber > 10);
+
+  switch (chessPiece)
+  {
+  // Torre
+  case 1:
+  {
+    // Pergunta em qual direção a peça moverá com base nela
+    do
+    {
+      if (direction && direction <= 0 || direction > 4)
+      {
+        printf("Direção Invalida!\n");
+      }
+
+      printf("Escolha a Direção que a Paça Moverá!\n");
+      printf("1. Cima\n");
+      printf("2. Baixo\n");
+      printf("3. Direita\n");
+      printf("4. Esquerda\n");
+      scanf(" %hu", &direction);
+    } while (direction <= 0 || direction > 4);
+
+    // "Armazena" qual direção foi escolhida
+    switch (direction)
+    {
+    case 1:
+      directionName = "Cima!";
+      break;
+    case 2:
+      directionName = "Baixo!";
+      break;
+    case 3:
+      directionName = "Direita!";
+      break;
+    case 4:
+      directionName = "Esquerda!";
+      break;
+    }
+
+    // Imprime a direção do movimento
+    for (int i = 1; i <= positionsNumber; i++)
+    {
+      printf("%s\n", directionName);
+    }
+    break;
+  }
+
+  // Bispo
+  case 2:
+  {
+    // Pergunta em qual direção a peça moverá com base nela
+    do
+    {
+      if (direction && direction <= 0 || direction > 4)
+      {
+        printf("Direção Invalida!\n");
+      }
+
+      printf("Escolha a Direção que o Bispo Moverá!\n");
+      printf("1. Cima Direita\n");
+      printf("2. Cima Esquerda\n");
+      printf("3. Baixo Direita\n");
+      printf("4. Baixo Esquerda\n");
+      scanf(" %hu", &direction);
+    } while (direction <= 0 || direction > 4);
+
+    // "Armazena" qual direção foi escolhida
+    switch (direction)
+    {
+    case 1:
+      directionName = "Cima Direita!";
+      break;
+    case 2:
+      directionName = "Cima Esquerda!";
+      break;
+    case 3:
+      directionName = "Baixo Direita!";
+      break;
+    case 4:
+      directionName = "Baixo Esquerda!";
+      break;
+    }
+
+    // Imprime a direção do movimento
+    int i = 1;
+    while (i <= positionsNumber)
+    {
+      printf("%s\n", directionName);
+      i++;
+    }
+    break;
+  }
+
+  // Rainha
+  case 3:
+  {
+    // Pergunta em qual direção a peça moverá com base nela
+    do
+    {
+      if (direction && direction <= 0 || direction > 8)
+      {
+        printf("Direção Invalida!\n");
+      }
+
+      printf("Escolha a Direção que o Bispo Moverá!\n");
+      printf("1. Cima\n");
+      printf("2. Baixo\n");
+      printf("3. Direita\n");
+      printf("4. Esquerda\n");
+      printf("5. Cima Direita\n");
+      printf("6. Cima Esquerda\n");
+      printf("7. Baixo Direita\n");
+      printf("8. Baixo Esquerda\n");
+      scanf(" %hu", &direction);
+    } while (direction <= 0 || direction > 8);
+
+    // "Armazena" qual direção foi escolhida
+    switch (direction)
+    {
+    case 1:
+      directionName = "Cima!";
+      break;
+    case 2:
+      directionName = "Baixo!";
+      break;
+    case 3:
+      directionName = "Direita!";
+      break;
+    case 4:
+      directionName = "Esquerda!";
+      break;
+    case 5:
+      directionName = "Cima Direita!";
+      break;
+    case 6:
+      directionName = "Cima Esquerda!";
+      break;
+    case 7:
+      directionName = "Baixo Direita!";
+      break;
+    case 8:
+      directionName = "Baixo Esquerda!";
+      break;
+    }
+
+    // Imprime a direção do movimento
+    int i = 1;
+    do
+    {
+      printf("%s\n", directionName);
+      i++;
+    } while (i <= positionsNumber);
+    break;
+  }
+  }
+
+  return 0;
+}
